@@ -7,9 +7,9 @@ import { getCurrentDate } from "@/app/utils/get-current-date";
 import { streamToBuffer } from "../stream-to-buffer";
 
 interface IcopyAndWriteTemplateProps {
-  position?: string;
+  position: string;
   company: string;
-  hiringManager?: string;
+  hiringManager: string;
 }
 // Replace with your actual Google Docs template ID
 const TEMPLATE_ID = process.env.GOOGLE_TEMPLATES_ID;
@@ -20,9 +20,9 @@ const TEMPLATE_ID = process.env.GOOGLE_TEMPLATES_ID;
 // It requires the GOOGLE_CREDENTIALS_PATH and GOOGLE_TEMPLATES_ID environment variables to be set
 // The GOOGLE_CREDENTIALS_PATH should point to a JSON file with the service account credentials
 export const copyAndWriteTemplate = async ({
-  company = "",
-  position = "Front-End Developer",
-  hiringManager = "Hiring Manager",
+  company,
+  position,
+  hiringManager,
 }: IcopyAndWriteTemplateProps) => {
   // Initialize Google Auth
   const auth = new google.auth.GoogleAuth({
@@ -52,10 +52,6 @@ export const copyAndWriteTemplate = async ({
     console.log("Copied template:", newDocId);
     // Get current date
     const { month, day, formattedDate } = getCurrentDate();
-    console.log("Current date:", formattedDate);
-    console.log("Position:", position);
-    console.log("Company:", company);
-    console.log("Hiring Manager:", hiringManager);
 
     // 2. Replace placeholders
     await docs.documents.batchUpdate({

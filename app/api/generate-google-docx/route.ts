@@ -5,7 +5,9 @@ import { copyAndWriteTemplate } from "@/app/utils/copy-and-write-template";
 
 export async function POST(request: Request) {
   let jobLink: string, position: string, company: string, hiringManager: string;
-  jobLink = position = company = hiringManager = "";
+  jobLink = company = "";
+  hiringManager = "Hiring Manager";
+  position = "Software Engineer";
   const params = await request.json();
 
   // params.jobLink or params.company Should be provided
