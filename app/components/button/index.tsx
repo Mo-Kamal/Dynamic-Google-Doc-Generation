@@ -4,6 +4,7 @@ export const CButton = ({
   className = "",
   type = "button",
   isLoading = false,
+  ...props
 }: {
   children: React.ReactNode;
   onClick?: () => void;
@@ -19,6 +20,7 @@ export const CButton = ({
       className={`bg-blue-500 text-white rounded-md p-2 hover:bg-blue-600 transition duration-200 ${
         isLoading ? "opacity-50 cursor-not-allowed" : ""
       } ${className}`}
+      {...props}
     >
       {children}
     </button>
