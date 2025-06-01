@@ -4,10 +4,19 @@ import { getInfoFromScrappedPage } from "@/app/utils/get-info-from-scrapped-page
 import { copyAndWriteTemplate } from "@/app/utils/copy-and-write-template";
 
 export async function POST(request: Request) {
-  let jobLink, position, company, hiringManager;
-  jobLink = position = company = hiringManager = "";
-
+  let jobLink: string, position: string, company: string, hiringManager: string;
+  jobLink = company = "";
+  hiringManager = "Hiring Manager";
+  position = "Software Engineer";
   const params = await request.json();
+
+  // params.jobLink or params.company Should be provided
+  if (!params.jobLink && !params.company) {
+    return NextResponse.json(
+      { error: "Either jobLink or company must be provided." },
+      { status: 400 }
+    );
+  }
 
   if (params.jobLink) {
     console.log("Scraping job link:", params.jobLink);
@@ -48,6 +57,11 @@ export async function POST(request: Request) {
   if (params.company) company = params.company;
   if (params.position) position = params.position;
   if (params.hiringManager) hiringManager = params.hiringManager;
+  console.log("Final values:", {
+    position,
+    company,
+    hiringManager: hiringManager,
+  });
 
   return await copyAndWriteTemplate({
     position,
